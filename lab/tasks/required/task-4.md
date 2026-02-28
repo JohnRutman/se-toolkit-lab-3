@@ -35,7 +35,8 @@ You will deploy the learning management service on your VM, configure the API ke
     - [16. Create a `autochecker` SSH user](#16-create-a-autochecker-ssh-user)
     - [17. Add the instructor's SSH public key](#17-add-the-instructors-ssh-public-key)
     - [18. Restart `sshd`](#18-restart-sshd)
-  - [19. Write a comment for the issue](#19-write-a-comment-for-the-issue)
+    - [19. Update your SSH config](#19-update-your-ssh-config)
+  - [20. Write a comment for the issue](#20-write-a-comment-for-the-issue)
 - [Acceptance criteria](#acceptance-criteria)
 
 ## Steps
@@ -283,10 +284,6 @@ Use any of the following methods:
 
 3. Save the file and exit (`Ctrl+O`, `Enter`, `Ctrl+X`).
 
-> [!IMPORTANT]
-> Before disabling root login, make sure you can log in as the `operator` user you created in [Step 11](#11-create-a-non-root-ssh-user).
-> Open a new terminal on your laptop and test: `ssh operator@<vm-ip>`.
-
 ### 15. Disable password authentication
 
 1. Open the SSH configuration file:
@@ -336,10 +333,35 @@ Use any of the following methods:
    passwordauthentication no
    ```
 
-> [!IMPORTANT]
-> After restarting `sshd`, verify that you can still connect to the VM as the `operator` user from a **new** terminal on your laptop before closing the current session.
+### 19. Update your SSH config
 
-### 19. Write a comment for the issue
+> [!IMPORTANT]
+> Do not close your current terminal session until you complete this step.
+> Root login is now disabled, so you need to update your SSH config before reconnecting.
+
+1. Open a **new terminal on your laptop**.
+2. [Open the file](../../../wiki/vs-code.md#open-the-file):
+   `~/.ssh/config`
+
+3. Find the `se-toolkit-vm` entry and change `User root` to `User operator`:
+
+   ```text
+   Host se-toolkit-vm
+      HostName <your-vm-ip-address>
+      User operator
+      IdentityFile ~/.ssh/se_toolkit_key
+      AddKeysToAgent yes
+   ```
+
+4. Verify that you can connect as `operator`:
+
+   ```terminal
+   ssh se-toolkit-vm
+   ```
+
+5. You should see a prompt like `operator@<your-vm-name>:~$`.
+
+### 20. Write a comment for the issue
 
 1. Go to the issue that you created for this task.
 2. Scroll down.
