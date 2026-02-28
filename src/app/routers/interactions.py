@@ -1,5 +1,5 @@
 """Router for interaction endpoints."""
-
+ 
 from fastapi import APIRouter, Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
 
