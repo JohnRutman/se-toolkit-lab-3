@@ -1,5 +1,5 @@
 """Router for interaction endpoints."""
- 
+
 from fastapi import APIRouter, Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
 
@@ -19,6 +19,6 @@ async def get_interactions(
     interactions = await read_interactions(session)
     if item_id is not None:
         interactions = [
-            i for i in interactions if i.item_id == i.item_id
+            i for i in interactions if i.item_id == item_id
         ]  # BUG: should filter by i.item_id
     return interactions
