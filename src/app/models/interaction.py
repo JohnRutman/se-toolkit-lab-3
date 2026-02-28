@@ -19,7 +19,7 @@ class InteractionLog(SQLModel, table=True):
 
 class InteractionModel(SQLModel):
     """Response schema for an interaction."""
-
+  
     id: int
     learner_id: int
     item_id: int
